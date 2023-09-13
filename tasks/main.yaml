@@ -1,0 +1,13 @@
+- name: Create parent directories
+  file:
+    path: "{{ [eng_repo_base_dir, item] | join('/') | realpath }}"
+    state: directory
+    mode: 0755
+  loop: |
+    {{ eng_repos_to_clone | selectattr('dest', 'defined') | map(attribute='dest') | map('dirname') | unique }}
+
+- name: Clone repositories
+  include_tasks: clone-batch.yaml
+  loop: "{{ eng_repos_to_clone | batch(eng_repos_clone_batch_size) }}"
+  loop_control:
+    loop_var: batch

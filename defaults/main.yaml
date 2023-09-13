@@ -1,0 +1,6 @@
+eng_repos_clone_batch_size: 10
+
+eng_repos_default_remote_name: origin
+
+eng_repo_base_dir: "{{ ansible_user_dir }}"
+eng_repos_to_clone: []
