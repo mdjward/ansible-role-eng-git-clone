@@ -1,7 +1,7 @@
 - name: Clone repository
   git:
     repo: "{{ item.repo }}"
-    dest: "{{ [eng_repo_base_dir, repo.dest | default (item.repo | regex_replace('^(?:.+/)?([^/]+$)', '\\1'))] | join('/') | realpath }}"
+    dest: "{{ [eng_repo_base_dir, item.dest | default (item.repo | regex_replace('^(?:.+/)?([^/]+)$', '\\1'))] | join('/') | realpath }}"
     remote: "{{ item.remote | default(eng_repos_default_remote_name) }}"
   loop: "{{ batch }}"
   async: 60
